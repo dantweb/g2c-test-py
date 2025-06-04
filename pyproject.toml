@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "gpt2code"
+version = "0.1.0"
+description = "GPT2Code project"
+authors = ["Your Name <you@example.com>"]
+
+[tool.black]
+line-length = 88
+
+[tool.mypy]
+strict = true
+
+[tool.pytest.ini_options]
+addopts = "-v"

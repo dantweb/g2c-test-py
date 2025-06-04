@@ -9,7 +9,3 @@ def greet(name: str) -> str:
         Formatted greeting string
     """
     return f'Hi, {name}'
-
-
-if __name__ == '__main__':
-    print(greet('PyCharm'))
