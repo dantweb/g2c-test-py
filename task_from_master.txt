@@ -1,1 +1,1 @@
-Create 2 new tests and production methods for the test
+add data importer class and test which reads csv file and tests that the importer returns a class object with fields same as header fields of csv
