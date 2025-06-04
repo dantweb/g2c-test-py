@@ -16,5 +16,5 @@ class TestGreeting(unittest.TestCase):
         self.assertEqual(get_farewell("Alice"), "Goodbye, Alice")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

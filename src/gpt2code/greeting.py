@@ -7,7 +7,7 @@ def get_greeting(name: str) -> str:
     Returns:
         Formatted greeting string
     """
-    return f'Hi, {name}'
+    return f"Hi, {name}"
 
 
 def get_formal_greeting(name: str, title: str) -> str:
@@ -20,7 +20,7 @@ def get_formal_greeting(name: str, title: str) -> str:
     Returns:
         Formatted formal greeting string
     """
-    return f'Dear {title} {name}'
+    return f"Dear {title} {name}"
 
 
 def get_farewell(name: str) -> str:
@@ -32,4 +32,4 @@ def get_farewell(name: str) -> str:
     Returns:
         Formatted farewell string
     """
-    return f'Goodbye, {name}'
+    return f"Goodbye, {name}"

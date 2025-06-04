@@ -1,1 +1,22 @@
-add github actions actions: on each push it runs test
+fix this error on github actions
+build
+failed 1 minute ago in 24s
+Search logs
+1s
+1s
+0s
+16s
+3s
+1s
+Run poetry run black --check .
+would reformat /home/runner/work/g2c-test-py/g2c-test-py/src/__init__.py
+would reformat /home/runner/work/g2c-test-py/g2c-test-py/tests/__init__.py
+would reformat /home/runner/work/g2c-test-py/g2c-test-py/src/gpt2code/main.py
+would reformat /home/runner/work/g2c-test-py/g2c-test-py/src/gpt2code/greeting.py
+would reformat /home/runner/work/g2c-test-py/g2c-test-py/src/gpt2code/data_importer.py
+would reformat /home/runner/work/g2c-test-py/g2c-test-py/tests/test_main.py
+would reformat /home/runner/work/g2c-test-py/g2c-test-py/tests/test_data_importer.py
+
+Oh no! 💥 💔 💥
+7 files would be reformatted, 2 files would be left unchanged.
+Error: Process completed with exit code 1.

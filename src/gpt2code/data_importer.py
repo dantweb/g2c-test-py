@@ -25,11 +25,11 @@ class CSVImporter:
             ValueError: If CSV formatting is invalid
         """
         try:
-            with open(file_path, 'r', newline='', encoding='utf-8') as csvfile:
+            with open(file_path, "r", newline="", encoding="utf-8") as csvfile:
                 reader = csv.reader(csvfile)
                 headers = next(reader)
-                cleaned_headers = [h.strip().replace(' ', '_') for h in headers]
-                Row = namedtuple('Row', cleaned_headers)
+                cleaned_headers = [h.strip().replace(" ", "_") for h in headers]
+                Row = namedtuple("Row", cleaned_headers)
                 
                 return [Row(*row) for row in reader]
                 
