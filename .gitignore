@@ -9,3 +9,5 @@ htmlcov/
 .vscode/
 venv/
 env/
+/var/users/1/loops/
+/var/users/1/
