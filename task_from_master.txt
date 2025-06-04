@@ -1,1 +1,1 @@
-add data importer class and test which reads csv file and tests that the importer returns a class object with fields same as header fields of csv
+add github actions actions: on each push runs it test
