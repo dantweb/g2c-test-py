@@ -1,13 +1,4 @@
-def get_greeting(name: str) -> str:
-    """Generate greeting message.
-    
-    Args:
-        name: Name to include in greeting
-        
-    Returns:
-        Formatted greeting string
-    """
-    return f'Hi, {name}'
+from .greeting import get_greeting, get_formal_greeting, get_farewell
 
 
 def main() -> None:
