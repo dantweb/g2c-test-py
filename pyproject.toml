@@ -12,3 +12,6 @@ strict = true
 
 [tool.pytest.ini_options]
 addopts = "-v"
+
+[tool.poetry.dependencies]
+python = "^3.9"
