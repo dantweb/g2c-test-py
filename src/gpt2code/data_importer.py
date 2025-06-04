@@ -1,20 +1,19 @@
 import csv
-from collections import namedtuple
-from typing import List
+from typing import List, Dict
 
 
 class CSVImporter:
-    """Imports data from CSV files into structured objects."""
+    """Imports data from CSV files into structured dictionaries."""
 
     @staticmethod
-    def import_data(file_path: str) -> List[namedtuple]:
-        """Read CSV file and return objects matching header structure.
+    def import_data(file_path: str) -> List[Dict[str, str]]:
+        """Read CSV file and return dictionaries matching header structure.
         
         Args:
             file_path: Path to CSV file
             
         Returns:
-            List of objects where attributes match CSV headers
+            List of dictionaries where keys match sanitized CSV headers
             
         Raises:
             FileNotFoundError: If file doesn't exist
@@ -25,8 +24,14 @@ class CSVImporter:
                 reader = csv.reader(csvfile)
                 headers = next(reader)
                 cleaned_headers = [h.strip().replace(" ", "_") for h in headers]
-                Row = namedtuple("Row", cleaned_headers)
-                return [Row(*row) for row in reader]
+                
+                data = []
+                for row in reader:
+                    if len(row) != len(cleaned_headers):
+                        raise ValueError("Row has incorrect number of fields")
+                    data.append(dict(zip(cleaned_headers, row)))
+                
+                return data
         except FileNotFoundError:
             raise FileNotFoundError(f"CSV file not found at {file_path}")
         except Exception as e:

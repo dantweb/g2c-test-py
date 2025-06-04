@@ -1,19 +1,29 @@
 fix this error i see now on github actions
-Run poetry run black --check .
-  poetry run black --check .
-  shell: /usr/bin/bash -e {0}
-  env:
-    pythonLocation: /opt/hostedtoolcache/Python/3.9.22/x64
-    PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.9.22/x64/lib/pkgconfig
-    Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.22/x64
-    Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.22/x64
-    Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.22/x64
-    LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.9.22/x64/lib
-    VENV: .venv/bin/activate
-would reformat /home/runner/work/g2c-test-py/g2c-test-py/src/gpt2code/greeting.py
-would reformat /home/runner/work/g2c-test-py/g2c-test-py/src/gpt2code/data_importer.py
-would reformat /home/runner/work/g2c-test-py/g2c-test-py/tests/test_data_importer.py
+Run poetry run mypy .
 
-Oh no! 💥 💔 💥
-3 files would be reformatted, 6 files would be left unchanged.
-Error: Process completed with exit code 1.
+src/gpt2code/data_importer.py:10: error: Function "collections.namedtuple" is not valid as a type  [valid-type]
+src/gpt2code/data_importer.py:10: note: Perhaps you need "Callable[...]" or a callback protocol?
+src/gpt2code/data_importer.py:28: error: List or tuple literal expected as the second argument to "namedtuple()"  [misc]
+tests/test_main.py:6: error: Function is missing a return type annotation  [no-untyped-def]
+tests/test_main.py:6: note: Use "-> None" if function does not return a value
+tests/test_main.py:10: error: Function is missing a return type annotation  [no-untyped-def]
+tests/test_main.py:10: note: Use "-> None" if function does not return a value
+tests/test_main.py:14: error: Function is missing a return type annotation  [no-untyped-def]
+tests/test_main.py:14: note: Use "-> None" if function does not return a value
+tests/test_data_importer.py:10: error: Function is missing a return type annotation  [no-untyped-def]
+tests/test_data_importer.py:10: note: Use "-> None" if function does not return a value
+tests/test_data_importer.py:20: error: namedtuple? has no attribute "name"  [attr-defined]
+tests/test_data_importer.py:21: error: namedtuple? has no attribute "age"  [attr-defined]
+tests/test_data_importer.py:22: error: namedtuple? has no attribute "occupation"  [attr-defined]
+tests/test_data_importer.py:23: error: namedtuple? has no attribute "name"  [attr-defined]
+tests/test_data_importer.py:24: error: namedtuple? has no attribute "age"  [attr-defined]
+tests/test_data_importer.py:25: error: namedtuple? has no attribute "occupation"  [attr-defined]
+tests/test_data_importer.py:29: error: Function is missing a return type annotation  [no-untyped-def]
+tests/test_data_importer.py:29: note: Use "-> None" if function does not return a value
+tests/test_data_importer.py:39: error: namedtuple? has no attribute "First_Name"  [attr-defined]
+tests/test_data_importer.py:40: error: namedtuple? has no attribute "Last_Name"  [attr-defined]
+tests/test_data_importer.py:44: error: Function is missing a return type annotation  [no-untyped-def]
+tests/test_data_importer.py:44: note: Use "-> None" if function does not return a value
+tests/test_data_importer.py:49: error: Function is missing a return type annotation  [no-untyped-def]
+tests/test_data_importer.py:49: note: Use "-> None" if function does not return a value
+Found 17 errors in 3 files (checked 9 source files)
