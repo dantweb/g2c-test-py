@@ -4,12 +4,8 @@ from typing import List
 
 
 class CSVImporter:
-    """Imports data from CSV files into structured objects.
-    
-    Attributes:
-        None
-    """
-    
+    """Imports data from CSV files into structured objects."""
+
     @staticmethod
     def import_data(file_path: str) -> List[namedtuple]:
         """Read CSV file and return objects matching header structure.
@@ -30,9 +26,7 @@ class CSVImporter:
                 headers = next(reader)
                 cleaned_headers = [h.strip().replace(" ", "_") for h in headers]
                 Row = namedtuple("Row", cleaned_headers)
-                
                 return [Row(*row) for row in reader]
-                
         except FileNotFoundError:
             raise FileNotFoundError(f"CSV file not found at {file_path}")
         except Exception as e:

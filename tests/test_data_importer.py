@@ -14,7 +14,6 @@ class TestCSVImporter(unittest.TestCase):
             tmp.write("Alice,30,Engineer\n")
             tmp.write("Bob,25,Designer\n")
             tmp_path = tmp.name
-        
         try:
             data = CSVImporter.import_data(tmp_path)
             self.assertEqual(len(data), 2)
@@ -33,7 +32,6 @@ class TestCSVImporter(unittest.TestCase):
             tmp.write("First Name, Last Name \n")
             tmp.write("John,Doe\n")
             tmp_path = tmp.name
-        
         try:
             data = CSVImporter.import_data(tmp_path)
             self.assertTrue(hasattr(data[0], "First_Name"))
@@ -54,7 +52,6 @@ class TestCSVImporter(unittest.TestCase):
             tmp.write("header1,header2\n")
             tmp.write("value1\n")  # Missing second value
             tmp_path = tmp.name
-        
         try:
             with self.assertRaises(ValueError):
                 CSVImporter.import_data(tmp_path)
