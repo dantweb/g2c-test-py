@@ -1,1 +1,1 @@
-add github actions actions: on each push runs it test
+add github actions actions: on each push it runs test

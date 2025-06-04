@@ -15,3 +15,10 @@ addopts = "-v"
 
 [tool.poetry.dependencies]
 python = "^3.9"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.0"
+
+[tool.poetry.group.lint.dependencies]
+black = "*"
+mypy = "*"
