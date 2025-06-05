@@ -1,6 +1,7 @@
 import unittest
 import os
 import tempfile
+from typing import List, Dict
 from src.gpt2code.data_importer import CSVImporter
 
 
@@ -15,7 +16,7 @@ class TestCSVImporter(unittest.TestCase):
             tmp.write("Bob,25,Designer\n")
             tmp_path = tmp.name
         try:
-            data = CSVImporter.import_data(tmp_path)
+            data: List[Dict[str, str]] = CSVImporter.import_data(tmp_path)
             self.assertEqual(len(data), 2)
             self.assertEqual(data[0]["name"], "Alice")
             self.assertEqual(data[0]["age"], "30")
@@ -33,7 +34,7 @@ class TestCSVImporter(unittest.TestCase):
             tmp.write("John,Doe\n")
             tmp_path = tmp.name
         try:
-            data = CSVImporter.import_data(tmp_path)
+            data: List[Dict[str, str]] = CSVImporter.import_data(tmp_path)
             self.assertIn("First_Name", data[0])
             self.assertIn("Last_Name", data[0])
             self.assertEqual(data[0]["First_Name"], "John")
