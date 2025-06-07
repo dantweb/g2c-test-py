@@ -58,6 +58,18 @@ class TestCSVImporter(unittest.TestCase):
                 CSVImporter.import_data(tmp_path)
         finally:
             os.unlink(tmp_path)
+            
+    def test_demo_data_import(self) -> None:
+        """Test reading demo CSV file from tests/demo directory."""
+        demo_file = os.path.join(os.path.dirname(__file__), 'demo', 'demo_data.csv')
+        data = CSVImporter.import_data(demo_file)
+        self.assertEqual(len(data), 10)
+        self.assertEqual(data[0]["id"], "1")
+        self.assertEqual(data[0]["name"], "Alice")
+        self.assertEqual(data[0]["value"], "100")
+        self.assertEqual(data[9]["id"], "10")
+        self.assertEqual(data[9]["name"], "Jack")
+        self.assertEqual(data[9]["value"], "1000")
 
 
 if __name__ == "__main__":
