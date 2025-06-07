@@ -25,12 +25,12 @@ class CSVImporter:
             
         try:
             with open(file_path, "r", newline="", encoding="utf-8") as csvfile:
-                # Read sample for dialect detection
-                sample = csvfile.read(1024)
+                # Read first line for dialect detection
+                first_line = csvfile.readline()
                 csvfile.seek(0)
                 
-                # Detect dialect parameters
-                dialect = CSVImporter.detect_dialect(sample)
+                # Detect dialect parameters using only header line
+                dialect = CSVImporter.detect_dialect(first_line)
                 
                 reader = csv.reader(csvfile, dialect)
                 headers = next(reader)
@@ -54,7 +54,7 @@ class CSVImporter:
         """Detect CSV dialect from sample content.
         
         Args:
-            sample: First 1024 bytes of CSV content
+            sample: First line of CSV content
             
         Returns:
             Detected CSV dialect class (subclass of csv.Dialect)
