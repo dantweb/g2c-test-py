@@ -1,1 +1,13 @@
-add morte details to static code analysers
+fix this error in github   poetry run mypy .
+  shell: /usr/bin/bash -e {0}
+  env:
+    pythonLocation: /opt/hostedtoolcache/Python/3.9.22/x64
+    PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.9.22/x64/lib/pkgconfig
+    Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.22/x64
+    Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.22/x64
+    Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.9.22/x64
+    LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.9.22/x64/lib
+    VENV: .venv/bin/activate
+src/gpt2code/data_importer.py:73: error: Incompatible return value type (got "type[Dialect]", expected "Dialect")  [return-value]
+Found 1 error in 1 file (checked 8 source files)
+Error: Process completed with exit code 1.
