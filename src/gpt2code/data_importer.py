@@ -1,10 +1,10 @@
 import csv
 import os
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 
 class CSVImporter:
-    """Imports data from CSV files into structured dictionaries."""
+    """Imports data from CSV files into structured dictionaries with automatic delimiter and quote detection."""
 
     @staticmethod
     def import_data(file_path: str) -> List[Dict[str, str]]:
@@ -25,7 +25,14 @@ class CSVImporter:
             
         try:
             with open(file_path, "r", newline="", encoding="utf-8") as csvfile:
-                reader = csv.reader(csvfile)
+                # Read sample for dialect detection
+                sample = csvfile.read(1024)
+                csvfile.seek(0)
+                
+                # Detect dialect parameters
+                dialect = CSVImporter.detect_dialect(sample)
+                
+                reader = csv.reader(csvfile, dialect)
                 headers = next(reader)
                 cleaned_headers = [h.strip().replace(" ", "_") for h in headers]
                 
@@ -41,3 +48,28 @@ class CSVImporter:
                 return data
         except csv.Error as e:
             raise ValueError(f"CSV parsing error: {str(e)}") from e
+
+    @staticmethod
+    def detect_dialect(sample: str) -> csv.Dialect:
+        """Detect CSV dialect from sample content.
+        
+        Args:
+            sample: First 1024 bytes of CSV content
+            
+        Returns:
+            Detected CSV dialect
+            
+        Raises:
+            ValueError: If unable to detect dialect
+        """
+        try:
+            sniffer = csv.Sniffer()
+            dialect = sniffer.sniff(sample)
+            
+            # Validate quote character
+            if dialect.quotechar not in ['"', "'"]:
+                dialect.quotechar = '"'
+                
+            return dialect
+        except csv.Error as e:
+            raise ValueError(f"CSV dialect detection failed: {str(e)}") from e

@@ -74,6 +74,57 @@ class TestCSVImporter(unittest.TestCase):
         self.assertEqual(data[9]["name"], "Jack")
         self.assertEqual(data[9]["value"], "1000")
 
+    def test_semicolon_delimited(self) -> None:
+        """Test detection of semicolon-delimited CSV."""
+        with tempfile.NamedTemporaryFile(mode="w+", delete=False, suffix=".csv") as tmp:
+            tmp.write("name;age;occupation\n")
+            tmp.write("Alice;30;Engineer\n")
+            tmp.write("Bob;25;Designer\n")
+            tmp_path = tmp.name
+        
+        try:
+            data = CSVImporter.import_data(tmp_path)
+            self.assertEqual(len(data), 2)
+            self.assertEqual(data[0]["name"], "Alice")
+            self.assertEqual(data[0]["age"], "30")
+            self.assertEqual(data[0]["occupation"], "Engineer")
+        finally:
+            os.unlink(tmp_path)
+
+    def test_single_quote(self) -> None:
+        """Test detection of single-quote enclosed fields."""
+        with tempfile.NamedTemporaryFile(mode="w+", delete=False, suffix=".csv") as tmp:
+            tmp.write("'name','age','occupation'\n")
+            tmp.write("'Alice','30','Engineer'\n")
+            tmp.write("'Bob','25','Designer'\n")
+            tmp_path = tmp.name
+        
+        try:
+            data = CSVImporter.import_data(tmp_path)
+            self.assertEqual(len(data), 2)
+            self.assertEqual(data[0]["name"], "Alice")
+            self.assertEqual(data[0]["age"], "30")
+            self.assertEqual(data[0]["occupation"], "Engineer")
+        finally:
+            os.unlink(tmp_path)
+
+    def test_double_quote(self) -> None:
+        """Test detection of double-quote enclosed fields."""
+        with tempfile.NamedTemporaryFile(mode="w+", delete=False, suffix=".csv") as tmp:
+            tmp.write('"name","age","occupation"\n')
+            tmp.write('"Alice","30","Engineer"\n')
+            tmp.write('"Bob","25","Designer"\n')
+            tmp_path = tmp.name
+        
+        try:
+            data = CSVImporter.import_data(tmp_path)
+            self.assertEqual(len(data), 2)
+            self.assertEqual(data[0]["name"], "Alice")
+            self.assertEqual(data[0]["age"], "30")
+            self.assertEqual(data[0]["occupation"], "Engineer")
+        finally:
+            os.unlink(tmp_path)
+
 
 if __name__ == "__main__":
     unittest.main()
