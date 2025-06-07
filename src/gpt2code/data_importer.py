@@ -73,7 +73,8 @@ class CSVImporter:
             if not sample.strip() or '\n' not in sample:
                 return csv.excel  # Default dialect
                 
-            dialect = sniffer.sniff(sample)
+            # Provide common delimiters to try
+            dialect = sniffer.sniff(sample, delimiters=",;\t")
             
             # Validate quote character
             if dialect.quotechar not in ['"', "'"]:
