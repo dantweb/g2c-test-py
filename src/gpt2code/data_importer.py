@@ -1,6 +1,6 @@
 import csv
 import os
-from typing import List, Dict, Optional
+from typing import List, Dict, Type
 
 
 class CSVImporter:
@@ -50,14 +50,14 @@ class CSVImporter:
             raise ValueError(f"CSV parsing error: {str(e)}") from e
 
     @staticmethod
-    def detect_dialect(sample: str) -> csv.Dialect:
+    def detect_dialect(sample: str) -> Type[csv.Dialect]:
         """Detect CSV dialect from sample content.
         
         Args:
             sample: First 1024 bytes of CSV content
             
         Returns:
-            Detected CSV dialect
+            Detected CSV dialect class (subclass of csv.Dialect)
             
         Raises:
             ValueError: If unable to detect dialect
