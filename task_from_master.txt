@@ -1,1 +1,1 @@
-add test and functionality which idetifyes if coma separated or ;-separated and if single or double quote csv
+add morte details to static code analysers
