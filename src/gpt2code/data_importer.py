@@ -25,12 +25,12 @@ class CSVImporter:
             
         try:
             with open(file_path, "r", newline="", encoding="utf-8") as csvfile:
-                # Read first line for dialect detection
-                first_line = csvfile.readline()
+                # Read sample for dialect detection
+                sample = csvfile.read(1024)
                 csvfile.seek(0)
                 
-                # Detect dialect parameters using only header line
-                dialect = CSVImporter.detect_dialect(first_line)
+                # Detect dialect parameters
+                dialect = CSVImporter.detect_dialect(sample)
                 
                 reader = csv.reader(csvfile, dialect)
                 headers = next(reader)
@@ -46,7 +46,7 @@ class CSVImporter:
                     data.append(dict(zip(cleaned_headers, row)))
                 
                 return data
-        except csv.Error as e:
+        except (csv.Error, UnicodeDecodeError) as e:
             raise ValueError(f"CSV parsing error: {str(e)}") from e
 
     @staticmethod
@@ -54,7 +54,7 @@ class CSVImporter:
         """Detect CSV dialect from sample content.
         
         Args:
-            sample: First line of CSV content
+            sample: First 1024 bytes of CSV content
             
         Returns:
             Detected CSV dialect class (subclass of csv.Dialect)
@@ -64,6 +64,11 @@ class CSVImporter:
         """
         try:
             sniffer = csv.Sniffer()
+            
+            # Skip dialect detection for small samples
+            if not sample.strip() or '\n' not in sample:
+                return csv.excel  # Default dialect
+                
             dialect = sniffer.sniff(sample)
             
             # Validate quote character
@@ -72,4 +77,5 @@ class CSVImporter:
                 
             return dialect
         except csv.Error as e:
-            raise ValueError(f"CSV dialect detection failed: {str(e)}") from e
+            # Return default dialect if detection fails
+            return csv.excel

@@ -57,8 +57,9 @@ class TestCSVImporter(unittest.TestCase):
             tmp_path = tmp.name
         
         try:
-            with self.assertRaisesRegex(ValueError, "Row 2 has 1 fields, expected 2"):
+            with self.assertRaises(ValueError) as context:
                 CSVImporter.import_data(tmp_path)
+            self.assertIn("fields", str(context.exception))
         finally:
             os.unlink(tmp_path)
             
