@@ -1,0 +1,22 @@
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment files
+.env
+.venv
+
+# Test artifacts
+.pytest_cache/
+/tmp/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log files
+*.log

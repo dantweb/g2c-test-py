@@ -1,4 +1,5 @@
 import csv
+import os
 from typing import List, Dict
 
 
@@ -19,6 +20,9 @@ class CSVImporter:
             FileNotFoundError: If file doesn't exist
             ValueError: If CSV formatting is invalid
         """
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"CSV file not found at {file_path}")
+            
         try:
             with open(file_path, "r", newline="", encoding="utf-8") as csvfile:
                 reader = csv.reader(csvfile)
@@ -26,13 +30,14 @@ class CSVImporter:
                 cleaned_headers = [h.strip().replace(" ", "_") for h in headers]
                 
                 data = []
-                for row in reader:
+                for row_num, row in enumerate(reader, start=2):
                     if len(row) != len(cleaned_headers):
-                        raise ValueError("Row has incorrect number of fields")
+                        raise ValueError(
+                            f"Row {row_num} has {len(row)} fields, "
+                            f"expected {len(cleaned_headers)}"
+                        )
                     data.append(dict(zip(cleaned_headers, row)))
                 
                 return data
-        except FileNotFoundError:
-            raise FileNotFoundError(f"CSV file not found at {file_path}")
-        except Exception as e:
-            raise ValueError(f"Error processing CSV: {str(e)}")
+        except csv.Error as e:
+            raise ValueError(f"CSV parsing error: {str(e)}") from e

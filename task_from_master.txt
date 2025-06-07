@@ -1,1 +1,1 @@
-add missing files and create directory "demo" in tests and put there a CSV with demodata 10 lines. and create a test which reads this files and sends to the importer
+add readme file to this repo
