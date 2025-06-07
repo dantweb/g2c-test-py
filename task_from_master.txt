@@ -1,5 +1,4 @@
-RESOLVE THIS ERROR I AM GETTING ON GITHUB
-Run poetry run pytest -v
+RESOLVE THIS ERROR I AM GETTING ON GITHUB Run poetry run pytest -v
 ============================= test session starts ==============================
 platform linux -- Python 3.9.22, pytest-7.4.4, pluggy-1.6.0 -- /home/runner/work/g2c-test-py/g2c-test-py/.venv/bin/python
 cachedir: .pytest_cache
@@ -32,7 +31,7 @@ self = <tests.test_data_importer.TestCSVImporter testMethod=test_invalid_csv_han
             tmp_path = tmp.name
     
         try:
-            with self.assertRaisesRegex(ValueError, "Row 2 has 1 fields, expected 2"):
+            with self.assertRaises(ValueError) as context:
 >               CSVImporter.import_data(tmp_path)
 E               AssertionError: ValueError not raised
 

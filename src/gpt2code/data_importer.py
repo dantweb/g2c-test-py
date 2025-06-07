@@ -38,6 +38,10 @@ class CSVImporter:
                 
                 data = []
                 for row_num, row in enumerate(reader, start=2):
+                    # Skip empty rows
+                    if not row:
+                        continue
+                        
                     if len(row) != len(cleaned_headers):
                         raise ValueError(
                             f"Row {row_num} has {len(row)} fields, "
@@ -76,6 +80,6 @@ class CSVImporter:
                 dialect.quotechar = '"'
                 
             return dialect
-        except csv.Error as e:
-            # Return default dialect if detection fails
+        except Exception:
+            # Return default dialect if any detection error occurs
             return csv.excel
