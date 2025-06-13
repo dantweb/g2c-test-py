@@ -126,6 +126,41 @@ class TestCSVImporter(unittest.TestCase):
         finally:
             os.unlink(tmp_path)
 
+<<<<<<< Updated upstream
+=======
+    def test_single_quote_with_embedded_double_quote(self) -> None:
+        """Test CSV with single quote enclosing and embedded double quote."""
+        with tempfile.NamedTemporaryFile(mode="w+", delete=False, suffix=".csv") as tmp:
+            tmp.write("name,age,occupation\n")
+            tmp.write("'Alice','30','Engineer \"specialist\"'\n")
+            tmp_path = tmp.name
+        
+        try:
+            data = CSVImporter.import_data(tmp_path)
+            self.assertEqual(len(data), 1)
+            self.assertEqual(data[0]["name"], "Alice")
+            self.assertEqual(data[0]["age"], "30")
+            self.assertEqual(data[0]["occupation"], "Engineer \"specialist\"")
+        finally:
+            os.unlink(tmp_path)
+
+    def test_double_quote_with_embedded_single_quote(self) -> None:
+        """Test CSV with double quote enclosing and embedded single quote."""
+        with tempfile.NamedTemporaryFile(mode="w+", delete=False, suffix=".csv") as tmp:
+            tmp.write("name,age,occupation\n")
+            tmp.write('"Alice","30","Engineer \'specialist\'"\n')
+            tmp_path = tmp.name
+        
+        try:
+            data = CSVImporter.import_data(tmp_path)
+            self.assertEqual(len(data), 1)
+            self.assertEqual(data[0]["name"], "Alice")
+            self.assertEqual(data[0]["age"], "30")
+            self.assertEqual(data[0]["occupation"], "Engineer 'specialist'")
+        finally:
+            os.unlink(tmp_path)
+
+>>>>>>> Stashed changes
 
 if __name__ == "__main__":
     unittest.main()
